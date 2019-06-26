@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+                               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <title>PointFlow</title>
+    </head>
+    <body class="container" style="max-width:780px">
+
+        <!-- Title -->
+        <div>
+            <div class='row mt-5 mb-3'>
+                <div class='col text-center'>
+                    <p class="h2 font-weight-normal">PointFlow: 3D Point Cloud Generation with Continuous Normalizing Flows</p>
+                </div>
+            </div>
+
+            <div class='row text-center h5 font-weight-bold pl-4 pr-4 mb-4'>
+                <a class="col-3" href="http://www.guandaoyang.com"><span>Guandao Yang*</span></a>
+                <a class="col-3" href="http://www.cs.cornell.edu/~xhuang/"><span>Xun Huang*</span></a>
+                <a class="col-3" href="http://www.cs.cornell.edu/~zekun/"><span>Zekun Hao</span></a>
+                <a class="col-3" href="http://mingyuliu.net/"><span>Ming-Yu Liu</span></a>
+                <a class="col-6" href="http://blogs.cornell.edu/techfaculty/serge-belongie/"><span>Serge Belongie</span></a>
+                <a class="col-6" href="http://home.bharathh.info/"><span>Bharath Hariharan</span></a>
+            </div>
+
+            <div class='row mt-1 mt-2' >
+                <div class='col text-center'>
+                    <p class="h5 font-weight-light">
+                    <a class="ml-4" href=""><span>Cornell University</span></a>
+                    <a class="mr-4 ml-4" href=""><span>Cornell Tech</span></a>
+                    <a class="mr-4 ml-4" href=""><span>NVIDIA</span></a>
+                    </p>
+                </div>
+            </div>
+
+            <div class='row justify-content-center'>
+                <img src="assets/teaser.gif" class="img-fluid rounded mx-auto d-block" alt="airplane">
+            </div>
+        </div>
+
+        <!-- Paper section -->
+        <div>
+            <hr>
+            <div class='row'>
+                <div class='col-3 text-center col-sm-3'>
+                    <!-- <p class='h2'>Paper</p> -->
+                    <div class="row mt-4">
+                        <a href="">
+                            <img src="assets/paper.jpg" alt="paper-snapshot" class="img-thumbnail" width="80%" style="box-shadow: 10px 10px 5px grey;">
+                        </a>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+                            <a class="h5" href="" style="margin-right:10px">
+                                <span>[Arxiv]</span>
+                            </a>
+                            <a class="h5" href="https://github.com/stevenygd/PointFlow" style="margin-right:10px">
+                                <span>[Codes]</span>
+                            </a>
+                            <a class="h5" href="assets/Bibtex.txt" target="_blank">
+                                <span>[Bibtex]</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class='col-9'>
+                    <p class='h4 font-weight-bold'>Abstract</p>
+                    <p style='line-height:1;'> 
+                    As 3D point clouds become the representation of choice
+                    for multiple vision and graphics applications, the ability to
+                    synthesize or reconstruct high-resolution, high-fidelity point
+                    clouds becomes crucial. Despite the recent success of deep
+                    learning models in discriminative tasks of point clouds,
+                    generating point clouds remains challenging. This paper
+                    proposes a principled probabilistic framework to generate
+                    3D point clouds by modeling them as a distribution of
+                    distributions. Specifically, we learn a two-level hierarchy
+                    of distributions where the first level is the distribution of
+                    shapes and the second level is the distribution of points
+                    given a shape. This formulation allows us to both sample
+                    shapes and sample an arbitrary number of points from
+                    a shape. Our generative model, named PointFlow, learns
+                    each level of the distribution with a continuous normalizing
+                    flow. The invertibility of normalizing flows enables
+                    computation of the likelihood during training and allows us
+                    to train our model in the variational inference framework.
+                    Empirically, we demonstrate that PointFlow achieves stateof-
+                    the-art performance in point cloud generation. We additionally
+                    show that our model can faithfully reconstruct
+                    point clouds and learn useful representations in an unsupervised
+                    manner.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Video -->
+        <div>
+            <hr>
+
+            <div class='row text-center'>
+                <div class='col'>
+                    <p class='h2'>Video</p>
+                </div>
+            </div>
+
+
+            <div class='row mt-3 text-center'>
+                <div class='col ml-1 mr-1'>
+                    <iframe 
+                        width="480" height="300"
+                        src="https://www.youtube.com/embed/MXWm6w4E5q0" frameborder="0" 
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
+                    >
+                    </iframe>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <!-- Architecture, explaination -->
+        <div>
+            <hr>
+            <div class='row text-center'>
+                <div class='col'>
+                    <p class='h2'>Architecture</p>
+                </div>
+            </div>
+
+
+            <div class='row mt-3'>
+                <div class='col'>
+                    <img src="assets/arch_bw.jpg" class="img-fluid" style="margin-top:15px" alt="architecture">
+                </div>
+            </div>
+        </div>
+
+        <!-- Results, transformation -->
+        <div>
+            <hr>
+            <div class='row text-center'>
+                <div class='col'>
+                    <p class='h2'>Flow Transformation</p>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col'>
+                    <img src="assets/flows.gif" class="img-fluid rounded mx-auto d-block" alt="flow-airplane-4">
+                </div>
+            </div>
+        </div>
+
+        <!-- Ack -->
+        <div>
+            <hr>
+
+            <div class='row mb-5 text-center'>
+                <div class='col'>
+                    <p class='h2'>Acknowledgements</p>
+                    <p>This work was supported in part by a research gift from Magic Leap. Xun Huang was supported by NVIDIA fellowship.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+                integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body>
+</html>
