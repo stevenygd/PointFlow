@@ -32,9 +32,9 @@
             <div class='row mt-1 mt-2' >
                 <div class='col text-center'>
                     <p class="h5 font-weight-light">
-                    <a class="ml-4" href=""><span>Cornell University</span></a>
-                    <a class="mr-4 ml-4" href=""><span>Cornell Tech</span></a>
-                    <a class="mr-4 ml-4" href=""><span>NVIDIA</span></a>
+                    <a class="ml-4" href="https://www.cornell.edu/"><span>Cornell University</span></a>
+                    <a class="mr-4 ml-4" href="https://tech.cornell.edu/"><span>Cornell Tech</span></a>
+                    <a class="mr-4 ml-4" href="https://www.nvidia.com/"><span>NVIDIA</span></a>
                     </p>
                 </div>
             </div>
@@ -114,11 +114,10 @@
 
             <div class='row mt-3 text-center'>
                 <div class='col ml-1 mr-1'>
-                    <iframe 
-                        width="480" height="300"
-                        src="https://www.youtube.com/embed/MXWm6w4E5q0" frameborder="0" 
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen
-                    >
+					<iframe width="560" height="315" 
+                        src="https://www.youtube.com/embed/kG_8V1ooY8w" frameborder="0" 
+                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                    </iframe>
                     </iframe>
                 </div>
             </div>
@@ -132,16 +131,36 @@
             <hr>
             <div class='row text-center'>
                 <div class='col'>
-                    <p class='h2'>Architecture</p>
+                    <p class='h2'>Brief Introduction to the Method</p>
                 </div>
             </div>
-
 
             <div class='row mt-3'>
-                <div class='col'>
-                    <img src="assets/arch_bw.jpg" class="img-fluid" style="margin-top:15px" alt="architecture">
+                <div class='col-7 mt-3'>
+                    <img src="assets/pcl_is_a_sample.gif" class="img-fluid" alt="architecture">
+                </div>
+                <div class='col-5 align-middle mt-5'>
+                    <p class="text-break">
+                        Each shape can be viewed as a distribution of 3D points.
+                        In such distribution, points on the shape have higher probability and are more likely to be sampled.
+                        A point cloud can be viewed as a set of sampled points from such a distribution.
+                    </p>
                 </div>
             </div>
+
+            <div class='row mt-3'>
+                <div class='col-5 align-middle mt-5'>
+                    <p class="text-break">
+                    We use two continuous normalizing flows (CNF) to model the distribution of shapes, each of which is a distribution of 3D points.
+                    The latent CNF transforms a vector sampled from the shape prior to a latent shape vector.
+                    The point CNF transforms 3D points sampled from the point prior to a point cloud on the shape.
+                    </p>
+                </div>
+                <div class='col-7 mt-3'>
+                    <img src="assets/inference-architecture.gif" class="img-fluid" alt="architecture">
+                </div>
+            </div>
+
         </div>
 
         <!-- Results, transformation -->
@@ -149,7 +168,7 @@
             <hr>
             <div class='row text-center'>
                 <div class='col'>
-                    <p class='h2'>Flow Transformation</p>
+                    <p class='h2'>Visulaization of the Flow</p>
                 </div>
             </div>
             <div class='row'>
