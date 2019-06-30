@@ -22,12 +22,12 @@
 
             <!-- authors -->
             <div class='row text-center h5 font-weight-bold pl-4 pr-4 mb-4'>
-                <a class="col-3" href="http://www.guandaoyang.com"><span>Guandao Yang*</span></a>
-                <a class="col-3" href="http://www.cs.cornell.edu/~xhuang/"><span>Xun Huang*</span></a>
-                <a class="col-3" href="http://www.cs.cornell.edu/~zekun/"><span>Zekun Hao</span></a>
-                <a class="col-3" href="http://mingyuliu.net/"><span>Ming-Yu Liu</span></a>
-                <a class="col-6" href="http://blogs.cornell.edu/techfaculty/serge-belongie/"><span>Serge Belongie</span></a>
-                <a class="col-6" href="http://home.bharathh.info/"><span>Bharath Hariharan</span></a>
+                <a class="col-md-3 col-xs-6" href="http://www.guandaoyang.com"><span>Guandao Yang*</span></a>
+                <a class="col-md-3 col-xs-6" href="http://www.cs.cornell.edu/~xhuang/"><span>Xun Huang*</span></a>
+                <a class="col-md-3 col-xs-6" href="http://www.cs.cornell.edu/~zekun/"><span>Zekun Hao</span></a>
+                <a class="col-md-3 col-xs-6" href="http://mingyuliu.net/"><span>Ming-Yu Liu</span></a>
+                <a class="col-md-6 col-xs-6" href="http://blogs.cornell.edu/techfaculty/serge-belongie/"><span>Serge Belongie</span></a>
+                <a class="col-md-6 col-xs-6" href="http://home.bharathh.info/"><span>Bharath Hariharan</span></a>
             </div>
 
             <!-- affiliations -->
@@ -50,9 +50,9 @@
         <div>
             <hr>
             <div class='row'>
-                <div class='col-3 text-center col-sm-3'>
+                <div class='col-md-3 col-sm-3 col-xs-12 text-center col-sm-3'>
                     <div class="row mt-4">
-                        <a href="assets/PointFlow.pdf">
+                        <a href="assets/PointFlow.pdf" style="max-width:200px; margin-left:auto; margin-right:auto">
                             <img src="assets/paper.jpg" alt="paper-snapshot" class="img-thumbnail" width="80%" style="box-shadow: 10px 10px 5px grey;">
                         </a>
                     </div>
@@ -70,8 +70,8 @@
                         </div>
                     </div>
                 </div>
-                <div class='col-9'>
-                    <p class='h4 font-weight-bold'>Abstract</p>
+                <div class='col-md-9 col-sm-9 col-xs-12'>
+                    <p class='h4 font-weight-bold '>Abstract</p>
                     <p style='line-height:1;'> 
                     As 3D point clouds become the representation of choice
                     for multiple vision and graphics applications, the ability to
@@ -127,7 +127,6 @@
         </div>
 
 
-
         <!-- Architecture, explaination -->
         <div>
             <hr>
@@ -138,10 +137,10 @@
             </div>
 
             <div class='row mt-3'>
-                <div class='col-7 mt-3'>
+                <div class='col-md-7 col-sm-7 col-xs-12 mt-3'>
                     <img src="assets/pcl_is_a_sample.gif" class="img-fluid" alt="architecture">
                 </div>
-                <div class='col-5 align-middle mt-5'>
+                <div class='col-md-5 col-sm-5 col-xs-12 align-middle mt-5'>
                     <p class="text-break">
                         Each shape can be viewed as a distribution of 3D points.
                         In such distribution, points on the shape have higher probability and are more likely to be sampled.
@@ -151,14 +150,14 @@
             </div>
 
             <div class='row mt-3'>
-                <div class='col-5 align-middle mt-5'>
+                <div class='col-md-5 col-sm-5 col-xs-12 align-middle mt-5'>
                     <p class="text-break">
                     We use two continuous normalizing flows (CNF) to model the distribution of shapes, each of which is a distribution of 3D points.
                     The latent CNF transforms a vector sampled from the shape prior to a latent shape vector.
                     The point CNF transforms 3D points sampled from the point prior to a point cloud on the shape.
                     </p>
                 </div>
-                <div class='col-7 mt-3'>
+                <div class='col-md-7 col-sm-7 col-xs-12 mt-3'>
                     <img src="assets/inference-architecture.gif" class="img-fluid" alt="architecture">
                 </div>
             </div>
