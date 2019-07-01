@@ -168,9 +168,9 @@
             <div class='row mt-3'>
                 <div class='col-md-5 col-sm-5 col-xs-12 align-middle mt-5'>
                     <p class="text-break">
-                    We use two continuous normalizing flows (CNF) to model the distribution of shapes, each of which is a distribution of 3D points.
+                    We use two continuous normalizing flows (CNFs) to model the distribution of shapes, while each shape is a distribution of 3D points.
                     The latent CNF transforms a vector sampled from the shape prior to a latent shape vector.
-                    The point CNF transforms 3D points sampled from the point prior to a point cloud on the shape.
+                    The point CNF transforms 3D points sampled from the point prior to a point cloud conditioned on a shape vector.
                     </p>
                 </div>
                 <div class='col-md-7 col-sm-7 col-xs-12 mt-3'>
