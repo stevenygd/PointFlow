@@ -9,6 +9,16 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
                                integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <title>PointFlow</title>
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-111714927-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-111714927-1');
+        </script>
     </head>
     <body class="container" style="max-width:780px">
 
@@ -42,7 +52,13 @@
             </div>
 
 			<div class='row justify-content-center'  style="position: relative; width: 100%;height: 0;padding-bottom: 33%; margin:0">
-                <img src="assets/teaser.gif" class="img-fluid rounded mx-auto d-block" alt="airplane" style="position:absolute; width:100%; height:100%; top:0px; left:0px;" >
+                <img 
+                    class="img-fluid rounded mx-auto d-block" 
+                    src="assets/teaser_sm.gif" alt="airplane" 
+                    style="position:absolute; width:100%; height:100%; top:0px; left:0px;" 
+                    srcset="assets/teaser.gif 1536w"
+                    sizes="(min-width: 768px) 1536px, 100vw"
+                >
 			</div>
         </div>
 
