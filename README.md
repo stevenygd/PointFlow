@@ -2,7 +2,7 @@
 
 This repository contains a PyTorch implementation of the paper:
 
-[PointFlow : 3D Point Cloud Generation with Continuous Normalizing Flows](www.arxiv.com). 
+[PointFlow : 3D Point Cloud Generation with Continuous Normalizing Flows](https://arxiv.org/abs/1906.12320). 
 
 [Guandao Yang*](http://www.guandaoyang.com), 
 [Xun Huang*](http://www.cs.cornell.edu/~xhuang/),
