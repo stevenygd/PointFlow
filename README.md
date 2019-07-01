@@ -11,7 +11,7 @@ This repository contains a PyTorch implementation of the paper:
 [Serge Belongie](http://blogs.cornell.edu/techfaculty/serge-belongie/),
 [Bharath Hariharan](http://home.bharathh.info/)
 
-**Codes will be available soon!**
+**The code will be available soon!**
 
 
 ## Introduction
