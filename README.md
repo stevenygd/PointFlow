@@ -13,6 +13,7 @@ This repository contains a PyTorch implementation of the paper:
 
 **The code will be available soon!**
 
+[\[Project page\]](https://www.guandaoyang.com/PointFlow/)
 
 ## Introduction
 
@@ -22,4 +23,3 @@ As 3D point clouds become the representation of choice for multiple vision and g
 <p float="left">
     <img src="docs/assets/teaser.gif" height="256"/>
 </p>
-
