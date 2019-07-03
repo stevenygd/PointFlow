@@ -13,7 +13,7 @@ This repository contains a PyTorch implementation of the paper:
 
 **The code will be available soon!**
 
-[\[Project page\]](https://www.guandaoyang.com/PointFlow/)
+[\[Project page\]](https://www.guandaoyang.com/PointFlow/) [\[Video\]](https://www.youtube.com/watch?v=jqBiv77xC0M)
 
 ## Introduction
 
