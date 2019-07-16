@@ -64,8 +64,8 @@ Example training scripts can be found in `scripts/` folder.
 ./scripts/shapenet_airplane_ae_dist.sh # Train with multiple GPUs
 
 # Train generative model
-./scripts/shapenet_airplane_ae.sh # Train with single GPU, about 7-8 GB GPU memory 
-./scripts/shapenet_airplane_ae_dist.sh # Train with multiple GPUs 
+./scripts/shapenet_airplane_gen.sh # Train with single GPU, about 7-8 GB GPU memory 
+./scripts/shapenet_airplane_gen_dist.sh # Train with multiple GPUs 
 ```
 
 ## Pre-trained models and test
