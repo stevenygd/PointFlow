@@ -3,13 +3,16 @@
 This repository contains a PyTorch implementation of the paper:
 
 [PointFlow : 3D Point Cloud Generation with Continuous Normalizing Flows](https://arxiv.org/abs/1906.12320). 
-
+<br>
 [Guandao Yang*](http://www.guandaoyang.com), 
 [Xun Huang*](http://www.cs.cornell.edu/~xhuang/),
 [Zekun Hao](http://www.cs.cornell.edu/~zekun/),
 [Ming-Yu Liu](http://mingyuliu.net/),
 [Serge Belongie](http://blogs.cornell.edu/techfaculty/serge-belongie/),
 [Bharath Hariharan](http://home.bharathh.info/)
+(* equal contribution)
+<br>
+ICCV 2019 (**Oral**)
 
 
 ## Introduction
@@ -27,7 +30,7 @@ As 3D point clouds become the representation of choice for multiple vision and g
 * G++ or GCC 5.
 * [PyTorch](http://pytorch.org/). Codes are tested with version 1.0.1
 * [torchdiffeq](https://github.com/rtqichen/torchdiffeq).
-* (Optional) [Tensorboard](https://www.tensorflow.org/) for visualization of training process. 
+* (Optional) [Tensorboard](https://www.tensorflow.org/) for visualization of the training process. 
 
 Following is the suggested way to install these dependencies: 
 ```bash
@@ -53,7 +56,7 @@ cd data
 unzip ShapeNetCore.v2.PC15k.zip
 ```
 
-Please contact us if you need point clouds for ModelNet dataset.
+Please contact us if you need point clouds for the ModelNet dataset.
 
 ## Training
 
@@ -71,7 +74,7 @@ Example training scripts can be found in `scripts/` folder.
 ## Pre-trained models and test
 
 Pretrained models can be downloaded from this [link](https://drive.google.com/file/d/1dcxjuuKiAXZxhiyWD_o_7Owx8Y3FbRHG/view?usp=sharing). 
-Following is the suggested way to evaluate the performance of the pre-trained models.
+The following is the suggested way to evaluate the performance of the pre-trained models.
 ```bash
 unzip pretrained_models.zip;  # This will create a folder named pretrained_models
 
@@ -87,7 +90,7 @@ CUDA_VISIBLE_DEVICES=0 ./scripts/shapenet_airplane_gen_test.sh
 
 ## Demo
 
-The demo relies on [Open3D](http://www.open3d.org/). Following is the suggested way to install it:
+The demo relies on [Open3D](http://www.open3d.org/). The following is the suggested way to install it:
 ```bash
 conda install -c open3d-admin open3d 
 ```
