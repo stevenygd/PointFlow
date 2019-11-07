@@ -100,6 +100,10 @@ Once this dependency is in place, you can use the following script to use the de
 CUDA_VISIBLE_DEVICES=0 ./scripts/shapenet_airplane_demo.py
 ```
 
+## Point cloud rendering
+
+Please refer to the following github repository for our point cloud rendering code: https://github.com/zekunhao1995/PointFlowRenderer.
+
 ## Cite
 Please cite our work if you find it useful:
 ```latex
