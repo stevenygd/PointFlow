@@ -97,7 +97,7 @@ conda install -c open3d-admin open3d
 The demo will sample shapes from a pre-trained model, save those shapes under the `demo` folder, and visualize those point clouds.
 Once this dependency is in place, you can use the following script to use the demo for the pre-trained model for airplanes:
 ```bash
-CUDA_VISIBLE_DEVICES=0 ./scripts/shapenet_airplane_demo.py
+CUDA_VISIBLE_DEVICES=0 ./scripts/shapenet_airplane_demo.sh
 ```
 
 ## Point cloud rendering
