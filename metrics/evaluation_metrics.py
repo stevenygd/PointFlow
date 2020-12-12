@@ -172,7 +172,7 @@ def lgan_mmd_cov(all_dist):
 def compute_all_metrics(sample_pcs, ref_pcs, batch_size, accelerated_cd=False):
     results = {}
 
-    M_rs_cd, M_rs_emd = _pairwise_EMD_CD_(ref_pcs, sample_pcs, batch_size, accelerated_cd=accelerated_cd)
+    M_rs_cd, M_rs_emd = _pairwise_EMD_CD_(sample_pcs, ref_pcs, batch_size, accelerated_cd=accelerated_cd)
 
     res_cd = lgan_mmd_cov(M_rs_cd.t())
     results.update({
