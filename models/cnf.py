@@ -87,8 +87,8 @@ class CNF(nn.Module):
                 self.odefunc,
                 states,
                 integration_times.to(x),
-                atol=atol,
-                rtol=rtol,
+                atol=self.atol,
+                rtol=self.rtol,
                 method=self.solver,
                 options=self.solver_options,
             )
