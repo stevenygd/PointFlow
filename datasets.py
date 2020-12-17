@@ -4,7 +4,7 @@ import numpy as np
 from torch.utils.data import Dataset
 from torch.utils import data
 import random
-
+import glob
 # taken from https://github.com/optas/latent_3d_points/blob/8e8f29f8124ed5fc59439e8551ba7ef7567c9a37/src/in_out.py
 synsetid_to_cate = {
     '02691156': 'airplane', '02773838': 'bag', '02801938': 'basket',
@@ -162,6 +162,61 @@ class Uniform15KPC(Dataset):
             'mean': m, 'std': s, 'cate_idx': cate_idx,
             'sid': sid, 'mid': mid
         }
+
+class MyDataset(data.Dataset):
+    def __init__(self, root, npoints=8192, utransform=None, istest = False):
+        self.npoints = npoints
+        self.root = root
+        self.pointlist = []
+        self.pointpath = root + "/point/"
+        self.point_list = files = glob.glob(self.pointpath + "/*.txt")
+        self.all_points_mean = None
+        self.all_points_std = None
+        if(istest == False):self.point_list = self.point_list[:5000]
+        else:self.point_list = self.point_list[5000:]
+        count = 0
+        for file in self.point_list:
+            print(file)
+            # point cloud 取得
+            src = np.loadtxt(file)
+            normlized_xyz = np.zeros((npoints, 3))
+            self.coord_min, self.coord_max = np.amin(src, axis=0)[:3], np.amax(src, axis=0)[:3]
+            # print(self.coord_max )
+            if(self.coord_max[0]==0):continue
+            if(self.coord_max[1]==0):continue
+            if(self.coord_max[2]==0):continue
+            src[:, 0] = src[:, 0] - self.coord_min[0]
+            src[:, 1] = src[:, 1] - self.coord_min[1]
+            src[:, 2] = src[:, 2] - self.coord_min[2]
+            if(len(src) >=npoints):
+                np.random.shuffle(src)
+                normlized_xyz[:,:]=src[:npoints,:]
+            else:
+                normlized_xyz[:len(src),:]=src[:,:]
+
+            self.pointlist.append(normlized_xyz)
+
+            count+=1
+            # if(count>100):break
+            # print(normlized_xyz.shape)
+                
+
+        self.data_num = len(self.pointlist)
+        
+
+    def __getitem__(self, index):
+        point = self.pointlist[index]
+        point = torch.from_numpy(point).float()
+        return {
+            'idx': index,
+            'train_points': point,
+            'test_points': point
+        }
+        
+
+    def __len__(self):
+        return len(self.pointlist)
+
 
 
 class ModelNet40PointClouds(Uniform15KPC):
@@ -344,6 +399,8 @@ def get_datasets(args):
     elif args.dataset_type == 'modelnet40_15k':
         tr_dataset, te_dataset = _get_MN40_datasets_(args)
     elif args.dataset_type == 'modelnet10_15k':
+        tr_dataset, te_dataset = _get_MN10_datasets_(args)
+    elif args.dataset_type == 'mydataset':
         tr_dataset, te_dataset = _get_MN10_datasets_(args)
     else:
         raise Exception("Invalid dataset type:%s" % args.dataset_type)
