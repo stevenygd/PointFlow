@@ -5,6 +5,8 @@ from torch.utils.data import Dataset
 from torch.utils import data
 import random
 import glob
+import open3d as o3d
+
 # taken from https://github.com/optas/latent_3d_points/blob/8e8f29f8124ed5fc59439e8551ba7ef7567c9a37/src/in_out.py
 synsetid_to_cate = {
     '02691156': 'airplane', '02773838': 'bag', '02801938': 'basket',
@@ -179,8 +181,17 @@ class MyDataset(data.Dataset):
             print(file)
             # point cloud 取得
             src = np.loadtxt(file)
+            pcd = o3d.geometry.PointCloud()
+            pcd.points = o3d.utility.Vector3dVector(src)
+            # cl, ind = pcd.remove_radius_outlier(nb_points=16, radius=0.05)
+            cl, ind = pcd.remove_statistical_outlier(nb_neighbors=20,
+                                                        std_ratio=2.0)
+            pcd = pcd.select_down_sample(ind)
+            src = np.asarray(pcd.points)
+            # print(src.shape)
             normlized_xyz = np.zeros((npoints, 3))
             self.coord_min, self.coord_max = np.amin(src, axis=0)[:3], np.amax(src, axis=0)[:3]
+
             # print(self.coord_max )
             if(self.coord_max[0]==0):continue
             if(self.coord_max[1]==0):continue
