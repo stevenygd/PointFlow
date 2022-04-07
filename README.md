@@ -35,13 +35,11 @@ As 3D point clouds become the representation of choice for multiple vision and g
 Following is the suggested way to install these dependencies: 
 ```bash
 # Create a new conda environment
-conda create -n PointFlow python=3.6
-conda activate PointFlow
+conda env create -f environment.yml
+conda activate PointFlow 
 
-# Install pytorch (please refer to the commend in the official website)
-conda install pytorch=1.0.1 torchvision cudatoolkit=10.0 -c pytorch -y
-
-# Install other dependencies such as torchdiffeq, structural losses, etc.
+# Compile structural losses, etc., but this step is not required 
+# as there is a version of EMD/CD not requiring the CUDA kernel.
 ./install.sh
 ```
 

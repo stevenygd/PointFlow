@@ -4,31 +4,7 @@ import warnings
 from scipy.stats import entropy
 from sklearn.neighbors import NearestNeighbors
 from numpy.linalg import norm
-
-# Import CUDA version of approximate EMD, from https://github.com/zekunhao1995/pcgan-pytorch/
-from .StructuralLosses.match_cost import match_cost
-from .StructuralLosses.nn_distance import nn_distance
-
-
-# # Import CUDA version of CD, borrowed from https://github.com/ThibaultGROUEIX/AtlasNet
-# try:
-#     from . chamfer_distance_ext.dist_chamfer import chamferDist
-#     CD = chamferDist()
-#     def distChamferCUDA(x,y):
-#         return CD(x,y,gpu)
-# except:
-
-
-def distChamferCUDA(x, y):
-    return nn_distance(x, y)
-
-
-def emd_approx(sample, ref):
-    B, N, N_ref = sample.size(0), sample.size(1), ref.size(1)
-    assert N == N_ref, "Not sure what would EMD do in this case"
-    emd = match_cost(sample, ref)  # (B,)
-    emd_norm = emd / float(N)  # (B,)
-    return emd_norm
+from scipy.optimize import linear_sum_assignment
 
 
 # Borrow from https://github.com/ThibaultGROUEIX/AtlasNet
@@ -44,8 +20,53 @@ def distChamfer(a, b):
     P = (rx.transpose(2, 1) + ry - 2 * zz)
     return P.min(1)[0], P.min(2)[0]
 
+# Import CUDA version of approximate EMD, from https://github.com/zekunhao1995/pcgan-pytorch/
+try:
+    from .StructuralLosses.nn_distance import nn_distance
+    def distChamferCUDA(x, y):
+        return nn_distance(x, y)
+except:
+    print("distChamferCUDA not available; fall back to slower version.")
+    def distChamferCUDA(x, y):
+        return distChamfer(x, y)
 
-def EMD_CD(sample_pcs, ref_pcs, batch_size, accelerated_cd=False, reduced=True):
+
+def emd_approx(x, y):
+    bs, npts, mpts, dim = x.size(0), x.size(1), y.size(1), x.size(2)
+    assert npts == mpts, "EMD only works if two point clouds are equal size"
+    dim = x.shape[-1]
+    x = x.reshape(bs, npts, 1, dim)
+    y = y.reshape(bs, 1, mpts, dim)
+    dist = (x - y).norm(dim=-1, keepdim=False)  # (bs, npts, mpts)
+
+    emd_lst = []
+    dist_np = dist.cpu().detach().numpy()
+    for i in range(bs):
+        d_i = dist_np[i]
+        r_idx, c_idx = linear_sum_assignment(d_i)
+        emd_i = d_i[r_idx, c_idx].mean()
+        emd_lst.append(emd_i)
+    emd = np.stack(emd_lst).reshape(-1)
+    emd_torch = torch.from_numpy(emd).to(x)
+    return emd_torch
+
+
+try:
+    from .StructuralLosses.match_cost import match_cost
+    def emd_approx_cuda(sample, ref):
+        B, N, N_ref = sample.size(0), sample.size(1), ref.size(1)
+        assert N == N_ref, "Not sure what would EMD do in this case"
+        emd = match_cost(sample, ref)  # (B,)
+        emd_norm = emd / float(N)  # (B,)
+        return emd_norm
+except:
+    print("emd_approx_cuda not available. Fall back to slower version.")
+    def emd_approx_cuda(sample, ref):
+        return emd_approx(sample, ref)
+
+
+def EMD_CD(sample_pcs, ref_pcs, batch_size, accelerated_cd=False, reduced=True,
+           accelerated_emd=False):
     N_sample = sample_pcs.shape[0]
     N_ref = ref_pcs.shape[0]
     assert N_sample == N_ref, "REF:%d SMP:%d" % (N_ref, N_sample)
@@ -65,7 +86,10 @@ def EMD_CD(sample_pcs, ref_pcs, batch_size, accelerated_cd=False, reduced=True):
             dl, dr = distChamfer(sample_batch, ref_batch)
         cd_lst.append(dl.mean(dim=1) + dr.mean(dim=1))
 
-        emd_batch = emd_approx(sample_batch, ref_batch)
+        if accelerated_emd:
+            emd_batch = emd_approx_cuda(sample_batch, ref_batch)
+        else:
+            emd_batch = emd_approx(sample_batch, ref_batch)
         emd_lst.append(emd_batch)
 
     if reduced:
@@ -82,7 +106,8 @@ def EMD_CD(sample_pcs, ref_pcs, batch_size, accelerated_cd=False, reduced=True):
     return results
 
 
-def _pairwise_EMD_CD_(sample_pcs, ref_pcs, batch_size, accelerated_cd=True):
+def _pairwise_EMD_CD_(sample_pcs, ref_pcs, batch_size, accelerated_cd=True,
+                      accelerated_emd=True):
     N_sample = sample_pcs.shape[0]
     N_ref = ref_pcs.shape[0]
     all_cd = []
@@ -101,13 +126,16 @@ def _pairwise_EMD_CD_(sample_pcs, ref_pcs, batch_size, accelerated_cd=True):
             sample_batch_exp = sample_batch.view(1, -1, 3).expand(batch_size_ref, -1, -1)
             sample_batch_exp = sample_batch_exp.contiguous()
 
-            if accelerated_cd:
+            if accelerated_cd and distChamferCUDA is not None:
                 dl, dr = distChamferCUDA(sample_batch_exp, ref_batch)
             else:
                 dl, dr = distChamfer(sample_batch_exp, ref_batch)
             cd_lst.append((dl.mean(dim=1) + dr.mean(dim=1)).view(1, -1))
 
-            emd_batch = emd_approx(sample_batch_exp, ref_batch)
+            if accelerated_emd:
+                emd_batch = emd_approx_cuda(sample_batch_exp, ref_batch)
+            else:
+                emd_batch = emd_approx(sample_batch_exp, ref_batch)
             emd_lst.append(emd_batch.view(1, -1))
 
         cd_lst = torch.cat(cd_lst, dim=1)
@@ -172,7 +200,7 @@ def lgan_mmd_cov(all_dist):
 def compute_all_metrics(sample_pcs, ref_pcs, batch_size, accelerated_cd=False):
     results = {}
 
-    M_rs_cd, M_rs_emd = _pairwise_EMD_CD_(sample_pcs, ref_pcs, batch_size, accelerated_cd=accelerated_cd)
+    M_rs_cd, M_rs_emd = _pairwise_EMD_CD_(ref_pcs, sample_pcs, batch_size, accelerated_cd=accelerated_cd)
 
     res_cd = lgan_mmd_cov(M_rs_cd.t())
     results.update({
