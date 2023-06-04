@@ -107,7 +107,7 @@ Please cite our work if you find it useful:
 ```latex
 @article{pointflow,
  title={PointFlow: 3D Point Cloud Generation with Continuous Normalizing Flows},
- author={Yang, Guandao and Huang, Xun, and Hao, Zekun and Liu, Ming-Yu and Belongie, Serge and Hariharan, Bharath},
+ author={Yang, Guandao and Huang, Xun and Hao, Zekun and Liu, Ming-Yu and Belongie, Serge and Hariharan, Bharath},
  journal={arXiv},
  year={2019}
 }
