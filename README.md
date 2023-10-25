@@ -71,7 +71,7 @@ Example training scripts can be found in `scripts/` folder.
 
 ## Pre-trained models and test
 
-Pretrained models can be downloaded from this [link](https://drive.google.com/file/d/1dcxjuuKiAXZxhiyWD_o_7Owx8Y3FbRHG/view?usp=sharing). 
+Pretrained models can be downloaded from this [link](https://drive.google.com/drive/folders/1yJ6bEoq9Wg_L2ua44G5DB9Vu6lZ-lIUV?usp=sharing). 
 The following is the suggested way to evaluate the performance of the pre-trained models.
 ```bash
 unzip pretrained_models.zip;  # This will create a folder named pretrained_models
