@@ -46,7 +46,7 @@ conda activate PointFlow
 ## Dataset 
 
 The point clouds are uniformly sampled from meshes from ShapeNetCore dataset (version 2) and use the official split.
-Please use this [link](https://drive.google.com/drive/folders/1G0rf-6HSHoTll6aH7voh-dXj6hCRhSAQ?usp=sharing) to download the ShapeNet point cloud.
+Please use this [link](https://drive.google.com/drive/folders/1MMRp7mMvRj8-tORDaGTJvrAeCMYTWU2j?usp=sharing) to download the ShapeNet point cloud.
 The point cloud should be placed into `data` directory.
 ```bash
 mv ShapeNetCore.v2.PC15k.zip data/
