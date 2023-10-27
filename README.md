@@ -35,7 +35,7 @@ As 3D point clouds become the representation of choice for multiple vision and g
 Following is the suggested way to install these dependencies: 
 ```bash
 # Create a new conda environment
-conda env create -f environment.yml
+conda env create -f env.yaml
 conda activate PointFlow 
 
 # Compile structural losses, etc., but this step is not required 
